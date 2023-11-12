@@ -1,0 +1,22 @@
+* {
+  user-select: none;
+  cursor: default;
+}
+.menuBar {
+  background-color: black;
+  color: white;
+}
+
+.boxStyle {
+  width: 425px;
+  border-width: 1px;
+  border-color: black;
+  border-radius: md;
+  padding: 16px;
+  margin: 16px auto;
+  overflow-x: hidden;
+}
+
+.modalBody {
+  padding: 16px;
+}
