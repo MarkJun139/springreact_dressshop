@@ -4,15 +4,17 @@ package com.java.shop.controller;
 import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.env.RandomValuePropertySourceEnvironmentPostProcessor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.java.shop.dto.Login;
 import com.java.shop.service.LoginService;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 
 @CrossOrigin(origins = "http://localhost:3000/")
@@ -37,12 +39,24 @@ public class LoginController {
 
     //아이디 중복확인
     @PostMapping("/idcheck")
-    public Boolean login(@RequestBody String uId) {
-        String idCheck = lsv.idCheck(uId);
-        if(idCheck!=null){
-                return true;
+    public Boolean idCheck(@RequestBody Login login) {
+        System.out.println("ssas유~~: "+ login);
+        int idCheck = lsv.idCheck(login.getUId());
+        if(idCheck!=0){
+            return true;
         }
         return false;
-}
+    }
+
+    //폰번호 중복확인
+    @PostMapping("/phonecheck")
+    public Boolean phoneCheck(@RequestBody String uPhone) {
+        int phoneCheck = lsv.phoneCheck(uPhone);
+        System.out.println(phoneCheck);
+        if(phoneCheck!=0){
+            return true;
+        }
+        return false;
+    }
 }
 

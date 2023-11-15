@@ -20,7 +20,11 @@ public class LoginService {
         return dao.register(map);
     }
 
-    public String idCheck(String id){
+    public int idCheck(String id){
         return dao.idCheck(id);
+    }
+
+    public int phoneCheck(String phone){
+        return dao.idCheck(phone);
     }
 }
