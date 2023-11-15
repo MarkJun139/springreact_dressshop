@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
 import {
-  ChakraProvider,
   Box,
+  Button,
+  ChakraProvider,
   Flex,
   Image,
-  Button,
   Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
   ModalBody,
-  ModalFooter,
   ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
 } from '@chakra-ui/react';
+import React, { useEffect, useState } from 'react';
+import './App.css';
+import CategorySelect from './CategorySelect';
 import LoginForm from './LoginForm';
-import SignupForm from './SignupForm';
 import Main from './Main';
+import ProductDetail from './ProductDetail';
+import SignupForm from './SignupForm';
 import { UserProvider } from './UserContext';
 import UserMenu from './UserMenu';
-import ProductDetail from './ProductDetail';
-import CategorySelect from './CategorySelect';
-import './App.css';
 
 function App() {
   const [showLoginForm, setShowLoginForm] = useState(false);
@@ -36,7 +36,7 @@ function App() {
     const fetchSession = async () => {
       // 세션 정보를 가져오는 API 호출
       try {
-        const response = await fetch('http://localhost:3001/api/session', {
+        const response = await fetch('http://localhost:8080/dlogin', {
           method: 'POST',
           credentials: 'include',
         });
@@ -80,15 +80,17 @@ function App() {
     setShowProductDetail(false);
   };
 
-  const handleLogin = async (username, password) => {
+  const handleLogin = async (uId, uPw) => {
     try {
       // 로그인 API 호출
-      const response = await fetch('http://localhost:3001/api/login', {
+      const response = await fetch('http://localhost:8080/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          "Access-Control-Allow-Origin": 'http://localhost:3000',
+          'Access-Control-Allow-Credentials': 'true',
         },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ uId, uPw }),
         credentials: 'include',
       });
 
@@ -116,7 +118,7 @@ function App() {
   const handleLogout = async () => {
     try {
       // 로그아웃 API 호출
-      const response = await fetch('http://localhost:3001/api/logout', {
+      const response = await fetch('http://localhost:8080/logout', {
         method: 'POST',
         credentials: 'include',
       });
