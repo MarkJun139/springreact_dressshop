@@ -25,6 +25,9 @@ public class LoginService {
     }
 
     public int phoneCheck(String phone){
-        return dao.idCheck(phone);
+        return dao.phoneCheck(phone);
+    }
+
+    public void phoneCheck2(String num){
     }
 }

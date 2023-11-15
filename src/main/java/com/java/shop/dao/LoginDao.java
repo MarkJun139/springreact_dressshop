@@ -21,4 +21,6 @@ public interface LoginDao {
 
     @Select("select count(*) from users where uPhone=#{phone}")
     int phoneCheck(String phone);
+
+    int phoneCheck2(String num);
 }
