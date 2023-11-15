@@ -19,4 +19,8 @@ public class LoginService {
     public Login register(HashMap<String, Object> map){
         return dao.register(map);
     }
+
+    public String idCheck(String id){
+        return dao.idCheck(id);
+    }
 }

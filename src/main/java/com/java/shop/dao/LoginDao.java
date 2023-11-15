@@ -15,4 +15,7 @@ public interface LoginDao {
 
     @Insert("insert into users value (#{uCode}, #{uId}, #{uPw}, #{uName}, #{uNick}, #{uEmail}, #{uEmailCheck}, #{uPhone}, #{uAccess}, #{uGrade}, #{uRegiDate}, #{uLastDate}, #{uDrop})")
     Login register(HashMap<String, Object> map);
+
+    @Select("select * from users where uId=#{id}")
+    String idCheck(String id);
 }

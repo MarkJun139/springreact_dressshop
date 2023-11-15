@@ -83,28 +83,27 @@ function App() {
   const handleLogin = async (uId, uPw) => {
     try {
       // 로그인 API 호출
-      const response = await fetch('http://localhost:8080/login', {
+      const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          "Access-Control-Allow-Origin": 'http://localhost:3000',
-          'Access-Control-Allow-Credentials': 'true',
+          'Access-Control-Allow-Origin': 'http://localhost:3001'
         },
         body: JSON.stringify({ uId, uPw }),
-        credentials: 'include',
+        withCredentials: true
       });
 
       if (response.ok) {
         const data = await response.json();
         if (data.success) {
           const newUser = {
-            nickname: data.nickname,
+            uNick: data.uNick,
           };
           setUser(newUser);
           setShowLoginForm(false);
           setShowMain(true);
         } else {
-          alert(data.message);
+          alert("natural");
         }
       } else {
         throw new Error('HTTP 요청 실패');
