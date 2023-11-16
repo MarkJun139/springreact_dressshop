@@ -36,7 +36,7 @@ function App() {
     const fetchSession = async () => {
       // 세션 정보를 가져오는 API 호출
       try {
-        const response = await fetch('http://localhost:8080/dlogin', {
+        const response = await fetch('http://localhost:3001/login', {
           method: 'POST',
           credentials: 'include',
         });
@@ -83,7 +83,7 @@ function App() {
   const handleLogin = async (uId, uPw) => {
     try {
       // 로그인 API 호출
-      const response = await fetch('http://localhost:8080/login', {
+      const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ function App() {
   const handleLogout = async () => {
     try {
       // 로그아웃 API 호출
-      const response = await fetch('http://localhost:8080/logout', {
+      const response = await fetch('http://localhost:3001/logout', {
         method: 'POST',
         credentials: 'include',
       });
