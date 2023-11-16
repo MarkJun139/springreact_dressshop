@@ -82,28 +82,35 @@ function App() {
 
   const handleLogin = async (uId, uPw) => {
     try {
-      // 로그인 API 호출
       const response = await fetch('http://localhost:3001/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': 'http://localhost:3001'
         },
         body: JSON.stringify({ uId, uPw }),
-        withCredentials: true
+        credentials: 'include'
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        if (data.success) {
-          const newUser = {
-            uNick: data.uNick,
-          };
-          setUser(newUser);
-          setShowLoginForm(false);
-          setShowMain(true);
+      // 서버의 응답을 텍스트로 변환하고 콘솔에 출력
+      const responseText = await response.text();
+      console.log(responseText);
+
+      if (response.status === 200) {
+        const contentType = response.headers.get('Content-Type');
+        if (contentType && contentType.includes('application/json')) {
+          const data = JSON.parse(responseText);
+          if (data) {
+            const newUser = {
+              uNick: data.unick,
+            };
+            setUser(newUser);
+            setShowLoginForm(false);
+            setShowMain(true);
+          } else {
+            alert("로그인 실패");
+          }
         } else {
-          alert("natural");
+          throw new Error('응답 본문이 JSON 형식이 아닙니다.');
         }
       } else {
         throw new Error('HTTP 요청 실패');
@@ -113,6 +120,7 @@ function App() {
       alert('로그인 중 오류가 발생했습니다.');
     }
   };
+
 
   const handleLogout = async () => {
     try {
