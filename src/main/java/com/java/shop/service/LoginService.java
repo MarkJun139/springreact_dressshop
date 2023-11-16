@@ -19,4 +19,15 @@ public class LoginService {
     public Login register(HashMap<String, Object> map){
         return dao.register(map);
     }
+
+    public int idCheck(String id){
+        return dao.idCheck(id);
+    }
+
+    public int phoneCheck(String phone){
+        return dao.phoneCheck(phone);
+    }
+
+    public void phoneCheck2(String num){
+    }
 }
