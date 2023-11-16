@@ -64,12 +64,14 @@ function App() {
     setShowLoginForm(true);
     setShowSignupForm(false);
     setShowMain(false);
+    setShowProductDetail(false); // 추가된 부분
   };
 
   const handleSignupClick = () => {
     setShowLoginForm(false);
     setShowSignupForm(true);
     setShowMain(false);
+    setShowProductDetail(false); // 추가된 부분
   };
 
   const handleLogoClick = () => {
@@ -78,6 +80,7 @@ function App() {
     setShowMain(true);
     setSelectedProduct(null);
     setShowProductDetail(false);
+    setSelectedCategory(null); // 수정된 부분
   };
 
   const handleLogin = async (uId, uPw) => {

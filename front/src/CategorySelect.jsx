@@ -47,22 +47,27 @@
 
 // export default CategorySelect;
 
-
-import React, { useState } from 'react';
+// CategorySelect 컴포넌트
+import React from 'react';
 import { Box, Button } from '@chakra-ui/react';
 
-const CategorySelect = ({ onSelectCategory }) => {
+const CategorySelect = ({ onSelectCategory, selectedCategory }) => {
   const categories = ['티셔츠', '바지', '스커트', '드레스', '아우터'];
-  const [selectedCategory, setSelectedCategory] = useState('');
 
   const handleCategorySelect = (category) => {
     if (selectedCategory === category) {
-      setSelectedCategory('');
-      onSelectCategory('');
+      onSelectCategory(null);
     } else {
-      setSelectedCategory(category);
       onSelectCategory(category);
     }
+  };
+
+  const isCategorySelected = (category) => {
+    return selectedCategory === category;
+  };
+
+  const handleLogoClick = () => {
+    onSelectCategory(null);
   };
 
   return (
@@ -70,7 +75,7 @@ const CategorySelect = ({ onSelectCategory }) => {
       {categories.map((category) => (
         <Button
           key={category}
-          variant={selectedCategory === category ? 'solid' : 'outline'}
+          variant={isCategorySelected(category) ? 'solid' : 'outline'}
           colorScheme="blue"
           onClick={() => handleCategorySelect(category)}
           fill={true}
@@ -80,6 +85,16 @@ const CategorySelect = ({ onSelectCategory }) => {
           {category}
         </Button>
       ))}
+      <Button
+        variant={selectedCategory === null ? 'solid' : 'outline'}
+        colorScheme="blue"
+        onClick={handleLogoClick}
+        fill={true}
+        width="100%"
+        marginBottom="10px"
+      >
+        모두 보기
+      </Button>
     </Box>
   );
 };
