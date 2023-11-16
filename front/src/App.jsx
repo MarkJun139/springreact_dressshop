@@ -36,7 +36,7 @@ function App() {
     const fetchSession = async () => {
       // 세션 정보를 가져오는 API 호출
       try {
-        const response = await fetch('http://localhost:8080/dlogin', {
+        const response = await fetch('http://localhost:3001/dlogin', {
           method: 'POST',
           credentials: 'include',
         });
@@ -117,7 +117,7 @@ function App() {
   const handleLogout = async () => {
     try {
       // 로그아웃 API 호출
-      const response = await fetch('http://localhost:8080/logout', {
+      const response = await fetch('http://localhost:3001/logout', {
         method: 'POST',
         credentials: 'include',
       });
