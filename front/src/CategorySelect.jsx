@@ -47,11 +47,11 @@
 
 // export default CategorySelect;
 
-// CategorySelect 컴포넌트
+
 import React from 'react';
 import { Box, Button } from '@chakra-ui/react';
 
-const CategorySelect = ({ onSelectCategory, selectedCategory }) => {
+const CategorySelect = ({ onSelectCategory, selectedCategory, onCategoryClick }) => {
   const categories = ['티셔츠', '바지', '스커트', '드레스', '아우터'];
 
   const handleCategorySelect = (category) => {
@@ -59,6 +59,10 @@ const CategorySelect = ({ onSelectCategory, selectedCategory }) => {
       onSelectCategory(null);
     } else {
       onSelectCategory(category);
+    }
+
+    if (onCategoryClick) {
+      onCategoryClick();
     }
   };
 
@@ -68,6 +72,10 @@ const CategorySelect = ({ onSelectCategory, selectedCategory }) => {
 
   const handleLogoClick = () => {
     onSelectCategory(null);
+
+    if (onCategoryClick) {
+      onCategoryClick();
+    }
   };
 
   return (

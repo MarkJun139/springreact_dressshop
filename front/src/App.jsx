@@ -1,3 +1,4 @@
+// App 컴포넌트
 import {
   Box,
   Button,
@@ -11,7 +12,17 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  useDisclosure,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  IconButton,
+  Tooltip
 } from '@chakra-ui/react';
+import { FiMenu } from 'react-icons/fi';
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import CategorySelect from './CategorySelect';
@@ -31,10 +42,10 @@ function App() {
   const [showProductDetail, setShowProductDetail] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     const fetchSession = async () => {
-      // 세션 정보를 가져오는 API 호출
       try {
         const response = await fetch('http://localhost:3001/dlogin', {
           method: 'POST',
@@ -64,14 +75,14 @@ function App() {
     setShowLoginForm(true);
     setShowSignupForm(false);
     setShowMain(false);
-    setShowProductDetail(false); // 추가된 부분
+    setShowProductDetail(false);
   };
 
   const handleSignupClick = () => {
     setShowLoginForm(false);
     setShowSignupForm(true);
     setShowMain(false);
-    setShowProductDetail(false); // 추가된 부분
+    setShowProductDetail(false);
   };
 
   const handleLogoClick = () => {
@@ -80,7 +91,7 @@ function App() {
     setShowMain(true);
     setSelectedProduct(null);
     setShowProductDetail(false);
-    setSelectedCategory(null); // 수정된 부분
+    setSelectedCategory(null);
   };
 
   const handleLogin = async (uId, uPw) => {
@@ -94,9 +105,7 @@ function App() {
         credentials: 'include'
       });
 
-      // 서버의 응답을 텍스트로 변환하고 콘솔에 출력
       const responseText = await response.text();
-      console.log(responseText);
 
       if (response.status === 200) {
         const contentType = response.headers.get('Content-Type');
@@ -104,7 +113,7 @@ function App() {
           const data = JSON.parse(responseText);
           if (data) {
             const newUser = {
-              uNick: data.unick,
+              nickname: data.nickname,
             };
             setUser(newUser);
             setShowLoginForm(false);
@@ -127,7 +136,6 @@ function App() {
 
   const handleLogout = async () => {
     try {
-      // 로그아웃 API 호출
       const response = await fetch('http://localhost:3001/logout', {
         method: 'POST',
         credentials: 'include',
@@ -173,8 +181,6 @@ function App() {
 
   const handleCategorySelect = (category) => {
     setSelectedCategory(category);
-    setShowProductDetail(false);
-    setShowMain(true);
   };
 
   return (
@@ -191,7 +197,34 @@ function App() {
             />
 
             <Box>
-              {user && <UserMenu onLogout={handleLogoutModalOpen} />}
+              {user && (
+                <>
+                  <Tooltip label="메뉴" openDelay={500}>
+                    <IconButton
+                      icon={<FiMenu />}
+                      onClick={onOpen}
+                      colorScheme="white"
+                      variant="outline"
+                      backgroundColor="black"
+                      color="white"
+                      _hover={{backgroundColor: "gray.700"}}
+                      _active={{backgroundColor: "gray.800"}}
+                    />
+                  </Tooltip>
+                  <Drawer placement="right" onClose={onClose} isOpen={isOpen}>
+                    <DrawerOverlay />
+                    <DrawerContent>
+                      <DrawerCloseButton />
+                      <DrawerHeader>환영합니다, {user.nickname}님</DrawerHeader>
+                      <DrawerBody>
+                        <Button colorScheme="red" onClick={handleLogout}>
+                          로그아웃
+                        </Button>
+                      </DrawerBody>
+                    </DrawerContent>
+                  </Drawer>
+                </>
+              )}
               {!user && (
                 <Button
                   colorScheme="white"
@@ -222,7 +255,11 @@ function App() {
           {showMain && (
             <Flex>
               <Box flex="2" style={{ padding: '0', margin: '0' }}>
-                <CategorySelect onSelectCategory={handleCategorySelect} />
+                <CategorySelect 
+                onSelectCategory={handleCategorySelect} 
+                selectedCategory={selectedCategory} 
+                onCategoryClick={handleProductDetailClose}
+              />
               </Box>
               <Box flex="8" style={{ padding: '0', margin: '0' }}>
                 <Main selectedCategory={selectedCategory} onDetail={handleProductDetail} />
@@ -230,16 +267,20 @@ function App() {
             </Flex>
           )}
 
-          {showProductDetail && (
-            <Flex>
-              <Box flex="2" style={{ padding: '0', margin: '0' }}>
-                <CategorySelect onSelectCategory={handleCategorySelect} />
-              </Box>
-              <Box flex="8" style={{ padding: '0', margin: '0' }}>
-                <ProductDetail product={selectedProduct} onClose={handleProductDetailClose} />
-              </Box>
-            </Flex>
-          )}
+{showProductDetail && (
+  <Flex>
+    <Box flex="2" style={{ padding: '0', margin: '0' }}>
+      <CategorySelect 
+        onSelectCategory={handleCategorySelect} 
+        selectedCategory={selectedCategory} 
+        onCategoryClick={handleProductDetailClose}
+      />
+    </Box>
+    <Box flex="8" style={{ padding: '0', margin: '0' }}>
+      <ProductDetail product={selectedProduct} onClose={handleProductDetailClose} onSelectCategory={handleCategorySelect} />
+    </Box>
+  </Flex>
+)}
 
           <Modal isOpen={showLogoutModal} onClose={handleLogoutModalClose}>
             <ModalOverlay />
