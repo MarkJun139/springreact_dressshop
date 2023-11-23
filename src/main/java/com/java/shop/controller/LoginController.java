@@ -44,8 +44,9 @@ public class LoginController {
 
     //아이디 중복확인
     @PostMapping("/idcheck")
-    public Boolean idCheck(@RequestBody String id) {
-        int idCheck = lsv.idCheck(id);
+    public Boolean idCheck(@RequestBody String uid) {
+        logger.info("{{{}} " + uid + " {}}");
+        int idCheck = lsv.idCheck(uid);
         if(idCheck != 0){
              return true;
          }

@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
 import {
+  Box,
+  Button,
+  Checkbox,
+  Flex,
   FormControl,
   FormLabel,
   Input,
-  Button,
-  Checkbox,
-  Box,
-  Flex,
 } from '@chakra-ui/react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const SignupForm = ({ onSignup }) => {
   const [name, setName] = useState('');
@@ -74,11 +74,25 @@ const SignupForm = ({ onSignup }) => {
     password.length >= 8 &&
     /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]+$/.test(password);
 
-  const handleIdCheck = () => {
-    // 중복 체크 로직 추가
-    setIsIdChecked(true);
+  const handleIdCheck = async (id) => {
+    try {
+      const response = await fetch('http://localhost:3001/idcheck', {
+        method: 'POST',
+        credentials: 'include',
+        body: JSON.stringify({id})
+      });
+      console.log(response.ok)
+      if (response) {
+        alert("사용 가능한 아이디입니다.");
+        setIsIdChecked(true);
+      } else{
+        alert("이미 가입된 아이디입니다.")
+      }
+    } catch (error) {
+      console.error(error);
+      alert('중복체크 중 오류가 발생했습니다.');
+    }
   };
-
   return (
     <Box overflowX="hidden">
       <form onSubmit={handleSubmit} ref={formRef} style={{ display: 'flex', flexDirection: 'column' }}>
