@@ -44,22 +44,30 @@ public class LoginController {
 
     //아이디 중복확인
     @PostMapping("/idcheck")
-    public Boolean idCheck(@RequestBody String uid) {
-        logger.info("{{{}} " + uid + " {}}");
-        int idCheck = lsv.idCheck(uid);
+    public Boolean idCheck(@RequestBody HashMap<String, Object> json) { //리퀘스트 json으로 받을수 있게 해주고
+        logger.info(json.toString());
+        String uid = (String) json.get("id"); //json으로 받은거에서 태그값을 추출해서 변수에 저장하고
+        logger.info(uid);
+        int idCheck = lsv.idCheck(uid); //추출한값으로 매개변수지정
         if(idCheck != 0){
-             return true;
-         }
+            logger.info( "{"+idCheck+"}" );
+            return true;
+        }
+        logger.info( "{"+idCheck+"}" );
         return false;
     }
 
     //폰번호 중복확인
     @PostMapping("/phonecheck")
-    public Boolean phoneCheck(@RequestBody String phone) {
+    public Boolean phoneCheck(@RequestBody HashMap<String, Object> json) {
+        String phone = (String) json.get("phoneNumber");
+        logger.info("phone"+phone);
         int phoneCheck = lsv.phoneCheck(phone);
         if(phoneCheck != 0){
-             return true;
-         }
+            logger.info("phoneCheck:"+phoneCheck);
+            return true;
+        }
+        logger.info("phoneCheck:"+phoneCheck);
         return false;
     }
 }

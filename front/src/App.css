@@ -20,3 +20,7 @@
 .modalBody {
   padding: 16px;
 }
+
+#phoneModal {
+  display: block !important;
+}
