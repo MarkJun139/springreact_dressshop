@@ -38,7 +38,7 @@ const SignupForm = ({ onSignup }) => {
     };
   }, []);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
       setPasswordError('비밀번호가 일치하지 않습니다.');
@@ -58,6 +58,29 @@ const SignupForm = ({ onSignup }) => {
       agreeEmail,
     };
     console.log(formData);
+    try {
+      const response = await fetch('http://localhost:3001/register', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+        // 가입 완료 후의 작업을 수행하세요.
+      } else {
+        alert("회원가입 중 오류가 발생했습니다.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("회원가입 중 오류가 발생했습니다.");
+    }
+
+
     onSignup(formData);
   };
 
