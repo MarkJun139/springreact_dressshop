@@ -25,21 +25,20 @@ public class LoginController {
     //로그인
     @PostMapping("/login")
     public ResponseEntity<Login> login(@RequestBody HashMap<String,Object> map) {
-            logger.info("Login request received: " + map.toString());
             Login login = lsv.login(map);
-            if (login != null) {
-                logger.info("Login successful: " + login.toString());
-            } else {
-                logger.info("Login failed for: " + map.get("uId"));
-            }
+
+            System.out.println(login);
+
             return ResponseEntity.ok(login);
     }
 
     //회원가입
     @PostMapping("/register")
     public ResponseEntity<Login> register(@RequestBody HashMap<String,Object> map) {
-            Login register = lsv.register(map);
-            return ResponseEntity.ok(register);
+            lsv.register(map);
+            Login login = lsv.login(map);
+
+            return ResponseEntity.ok(login);
     }
 
     //아이디 중복확인
