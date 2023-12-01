@@ -11,7 +11,7 @@ const UserMenu = ({ onLogout }) => {
     }
   };
   const handleCart = ()=>{
-    openCart();
+    
   }
 
   return (
