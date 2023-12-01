@@ -1,5 +1,5 @@
+import { Box, Flex, Grid, Image, Input, Text } from '@chakra-ui/react';
 import React, { useState } from 'react';
-import { Box, Flex, Input, Grid, Image, Text } from '@chakra-ui/react';
 
 const products = [
   {
@@ -7,7 +7,7 @@ const products = [
     name: '청바지',
     price: 50000,
     category: '바지',
-    image: '/images/jeans.jpg',
+    image: '../image/스웨터 상세 이미지.jpg',
   },
   {
     id: 2,

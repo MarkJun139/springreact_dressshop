@@ -1,15 +1,27 @@
-import { Box, Image, Text, Button, VStack } from '@chakra-ui/react';
+import { Box, Button, Image, Text } from '@chakra-ui/react';
 import React from 'react';
 
 const ProductDetail = ({ product }) => {
   // 이 부분은 실제 이미지 URL로 교체해야 합니다.
-  const image = '/images/a4_image.jpg';
+  const image = '../image/dress.jpg';
 
   return (
     <Box mt={10}>
-      <Box borderWidth="1px" borderRadius="md" overflow="hidden" w="100vw" h="141.4vw" position="relative">
-        <Image src={image} alt={`Product detail`} objectFit="cover" w="100%" h="100%" position="absolute" />
-      </Box>
+      <Box borderWidth="1px" borderRadius="md" overflow="hidden" w="100%" position="relative">
+  <img
+    src="https://i.ibb.co/zJDxnPQ/dress.jpg"
+    alt="dress"
+    objectFit="contain"
+    border="0"
+    width="80%"
+    height="auto"
+    position="absolute"
+    top="50%"
+    left="50%"
+    transform="translate(-50%, -50%)"
+  />
+</Box>
+
 
       <Box borderWidth="1px" borderRadius="md" position="fixed" top="35%" right="20px" zIndex="10">
         <Image src={product.image} alt={product.name} height="100px" objectFit="cover" />
