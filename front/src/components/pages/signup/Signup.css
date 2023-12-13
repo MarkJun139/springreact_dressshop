@@ -1,0 +1,41 @@
+.signupbox {
+    width: max-content;
+    height: max-content;
+    padding: 3%;
+    border: 1px solid;
+}
+
+.modal-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.form-control:focus {
+    border-color: #808080; /* 회색 */
+    box-shadow: 0 0 0 0.2rem rgba(128,128,128, 0.25); /* 회색에 투명도 25% 적용 */
+}
+
+input[type="checkbox"]:checked {
+    background-color: #808080 !important;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type="checkbox"]::-webkit-check-indicator {
+    color: white;
+    box-shadow: 0 0 0 0.2rem rgba(128,128,128, 0.25);
+}
+
+/* Chrome, Safari, Edge */
+input[type="checkbox"]:focus {
+    box-shadow: #808080;
+    box-shadow: 0 0 0 0.2rem rgba(128,128,128, 0.25);
+}
+
+p {
+    font-size: 14px;
+}
+h2{
+    text-align: center;
+}

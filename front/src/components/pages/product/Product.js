@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCategory } from "../../../state/store";
 import Button from "react-bootstrap/Button";
@@ -11,12 +11,17 @@ import { ImCross } from "react-icons/im";
 import { IoEllipsisHorizontalOutline } from "react-icons/io5";
 import { IoAppsOutline } from "react-icons/io5";
 import { setProductList } from "../../../state/productSlice";
+import queryString from "query-string";
 
 const Product = (props) => {
   const dispatch = useDispatch();
   const isCategoryOpen = useSelector((state) => state.menu.isCategoryOpen);
   const list = useSelector((state) => state.product.list);
   const [layout, setLayout] = useState("FOUR");
+  const location = useLocation();
+  const { search } = queryString.parse(location.search);
+  const { category } = queryString.parse(location.search);
+  const [headerText, setHeaderText] = useState("");
 
   useEffect(() => {
     fetch("/product_data.json")
@@ -25,6 +30,16 @@ const Product = (props) => {
         dispatch(setProductList(data));
       });
   }, [dispatch]);
+
+  useEffect(() => {
+    if (search) {
+      setHeaderText(`"${search}" 검색결과`);
+    } else if (category) {
+      setHeaderText(`카테고리 "${category}"`);
+    } else {
+      setHeaderText("상품 페이지");
+    }
+  }, [search, category]);
 
   const changeLayout = () => {
     setLayout((prevLayout) => (prevLayout === "FOUR" ? "EIGHT" : "FOUR"));
@@ -48,6 +63,8 @@ const Product = (props) => {
         </Button>
         </div>
       <Container>
+      <h3>{headerText}</h3>
+      <hr/>
         <div style={{margin:"50px"}}/>
         <Row>
           {list.map((item) => {

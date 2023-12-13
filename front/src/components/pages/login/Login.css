@@ -3,12 +3,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: calc(100vh - 90px);
+    position: relative;
+    margin: auto;
 }
 
 .box {
-    width: 300px;
-    height: 350px;
+    width: max-content;
+    height: max-content;
     padding: 3%;
     border: 1px solid;
 }
