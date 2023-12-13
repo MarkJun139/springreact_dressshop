@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { setLogin } from '../../../state/loginSlice';
 import axios from 'axios';
 import "./Login.css";
+import { setUserNick } from '../../../state/userSlice';
 
 const Login = (props) => {
   const dispatch = useDispatch();
+  const navigate  = useNavigate();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -25,7 +27,9 @@ const Login = (props) => {
     if(response.data) {
         dispatch(setLogin(true));
         console.log(response.data);
-        
+        const userNickFromResponse = response.data.unick;
+        dispatch(setUserNick(userNickFromResponse));
+        navigate('/');
     } else {
         dispatch(setLogin(false));
         console.log('로그인 실패');
