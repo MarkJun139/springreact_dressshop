@@ -1,0 +1,55 @@
+.btn-header{
+    color: white;
+    margin: 3px;
+    white-space: nowrap;
+    color: white;
+    margin: 5px;
+}
+.linkbox{
+    white-space: nowrap;
+    color: white;
+    margin-left: 10px;
+}
+
+.header{
+    margin: 10px;
+    color:white;
+    text-decoration: none;
+}
+
+.div-header{
+    background-color: black;
+    padding: 20px;
+    display: flex;
+}
+
+.input-group {
+    flex-grow: 1; 
+}
+
+
+.logo{
+    margin-right: 40px;
+}
+
+.dropdown-toggle.btn-success {
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+}
+.dropdown-toggle.btn-success:active {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.dropdown-menu {
+    background-color: black;
+    color: white;
+}
+
+.dropdown-menu a {
+    color: white;
+}
+.dropdown-menu a:active {
+    background-color: #6c757d;
+}

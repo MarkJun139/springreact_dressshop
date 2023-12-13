@@ -1,0 +1,7 @@
+.main-layout {
+    display: flex;
+  }
+  .card-img-fixed {
+    height: 400px;
+    object-fit: cover;
+  }
