@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setLogin } from '../../../state/loginSlice';
 import axios from 'axios';
 import "./Login.css";
@@ -61,11 +61,11 @@ const Login = (props) => {
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
               <label htmlFor="username" className="form-label">아이디:</label>
-              <input type="text" id="username" className="form-control" onChange={e => setUsername(e.target.value)} />
+              <input type="text" id="username" className="form-control" autoComplete="username" onChange={e => setUsername(e.target.value)} />
             </div>
             <div className="mb-3">
               <label htmlFor="password" className="form-label">비밀번호:</label>
-              <input type="password" id="password" className="form-control" onChange={e => setPassword(e.target.value)} />
+              <input type="password" id="password" className="form-control" autoComplete="current-password" onChange={e => setPassword(e.target.value)} />
             </div>
             <div className="form-footer">
               <button type="submit" className="btn btn-outline-secondary">로그인</button>

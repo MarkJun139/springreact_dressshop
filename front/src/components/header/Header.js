@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+/* eslint-disable react/jsx-pascal-case */
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import "./Header.css";
 import { BsSearch } from "react-icons/bs";
 import Header_Guest from './Header_Guest';
@@ -14,10 +15,6 @@ function Header(props) {
   const isLogin = useSelector(state => state.login.isLogin);
   const [isPermission, set_isPermission] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const list = useSelector((state) => state.product.list);
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const initialSearchTerm = searchParams.get('search') || '';
   const navigate = useNavigate();
   
 
@@ -61,6 +58,7 @@ function Header(props) {
         <input 
           type="text" 
           className="form-control" 
+          id='search'
           placeholder="검색어를 입력하세요" 
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}

@@ -5,7 +5,7 @@ import { toggleCategory } from "../../../state/store";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Category from "../category/Category";
-import { Container, Row, Col, ToggleButton as BSToggleButton} from "react-bootstrap";
+import { Container, Row, Col} from "react-bootstrap";
 import { PiRectangleFill } from "react-icons/pi";
 import { ImCross } from "react-icons/im";
 import { IoEllipsisHorizontalOutline } from "react-icons/io5";
@@ -24,7 +24,7 @@ const Product = (props) => {
       .then((data) => {
         dispatch(setProductList(data));
       });
-  }, []);
+  }, [dispatch]);
 
   const changeLayout = () => {
     setLayout((prevLayout) => (prevLayout === "FOUR" ? "EIGHT" : "FOUR"));
@@ -38,9 +38,9 @@ const Product = (props) => {
     <>
       <Category />
       <div style={{marginTop:"20px", marginLeft:"5px"}}>
-        <BSToggleButton onClick={handleToggle} variant="outline-secondary">
+        <Button onClick={handleToggle} variant="outline-secondary">
           {isCategoryOpen ? <ImCross /> : <IoEllipsisHorizontalOutline />}{" "}
-        </BSToggleButton>
+        </Button>
       </div>
       <div style={{marginTop:"20px",marginLeft:"5px"}}>
       <Button onClick={changeLayout} variant="outline-secondary">
