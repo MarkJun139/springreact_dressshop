@@ -10,18 +10,19 @@ import { PiRectangleFill } from "react-icons/pi";
 import { ImCross } from "react-icons/im";
 import { IoEllipsisHorizontalOutline } from "react-icons/io5";
 import { IoAppsOutline } from "react-icons/io5";
+import { setProductList } from "../../../state/productSlice";
 
 const Product = (props) => {
   const dispatch = useDispatch();
   const isCategoryOpen = useSelector((state) => state.menu.isCategoryOpen);
-  const [list, setList] = useState([]);
+  const list = useSelector((state) => state.product.list);
   const [layout, setLayout] = useState("FOUR");
 
   useEffect(() => {
     fetch("/product_data.json")
       .then((res) => res.json())
       .then((data) => {
-        setList(data);
+        dispatch(setProductList(data));
       });
   }, []);
 

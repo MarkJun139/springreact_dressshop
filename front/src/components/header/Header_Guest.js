@@ -6,7 +6,7 @@ function Header_Guest(props) {
     return (
         <>
             <Link to="/login">
-                <button class="btn btn-outline-secondary btn-header">로그인</button>
+                <button className="btn btn-outline-secondary btn-header">로그인</button>
             </Link>
         </>
     );

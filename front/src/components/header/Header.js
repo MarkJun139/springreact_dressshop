@@ -1,17 +1,25 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import "./Header.css";
 import { BsSearch } from "react-icons/bs";
 import Header_Guest from './Header_Guest';
 import Header_User from './Header_User';
 import Header_Admin from './Header_Admin';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setProductList } from '../../state/productSlice';
 
 function Header(props) {
+  const dispatch = useDispatch();
+  
   const isLogin = useSelector(state => state.login.isLogin);
   const [isPermission, set_isPermission] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
-  const [list, setList] = useState([]);
+  const list = useSelector((state) => state.product.list);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const initialSearchTerm = searchParams.get('search') || '';
+  const navigate = useNavigate();
+  
 
   let button;
   if (isLogin) {
@@ -28,14 +36,25 @@ function Header(props) {
     fetch("/product_data.json")
       .then((res) => res.json())
       .then((data) => {
-        const filteredData = data.filter((item) => item.상품이름.includes(searchTerm)); // 검색어가 포함된 상품만 필터링
-        setList(filteredData);
+        const filteredData = data.filter((item) => item.상품이름.includes(searchTerm));
+        dispatch(setProductList(filteredData));
       });
+    navigate(`/?search=${searchTerm}`);
   };
+
+  const getAllProducts = () => {
+    fetch("/product_data.json")
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch(setProductList(data));
+      });
+      setSearchTerm('');
+  };
+
   return (
     <>
       <div className="d-flex align-items-center div-header">
-        <Link to="/">
+        <Link to="/" onClick={getAllProducts}>
           <img src="/logo.png" className="img-fluid logo" alt="..." width="50px" />
         </Link>
         <div className="input-group">
@@ -54,7 +73,7 @@ function Header(props) {
       </div>
         <div className='linkbox'>
           |
-          <Link className="header" to='/'>Home</Link>
+          <Link className="header" to='/' onClick={getAllProducts}>Home</Link>
           |
           <Link className="header" to='/'>최근 본 상품</Link>
           |
