@@ -46,7 +46,7 @@ function Header_User(props) {
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             취소
           </Button>
-          <Button variant="primary" onClick={handleLogout}>
+          <Button variant="danger" onClick={handleLogout}>
             로그아웃
           </Button>
         </Modal.Footer>

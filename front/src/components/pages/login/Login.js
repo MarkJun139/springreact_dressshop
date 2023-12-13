@@ -5,6 +5,7 @@ import { setLogin } from '../../../state/loginSlice';
 import axios from 'axios';
 import "./Login.css";
 import { setUserNick } from '../../../state/userSlice';
+import { Button, Modal } from 'react-bootstrap';
 
 const Login = (props) => {
   const dispatch = useDispatch();
@@ -12,9 +13,25 @@ const Login = (props) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+
+  const handleClose = () => setShowModal(false);
+  const handleShow = (message) => {
+    setModalMessage(message);
+    setShowModal(true);
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!username) {
+      handleShow('아이디를 입력해주세요.');
+      return;
+    }
+    if (!password) {
+      handleShow('비밀번호를 입력해주세요.');
+      return;
+    }
 
     const data = {
         uId: username,
@@ -38,8 +55,8 @@ const Login = (props) => {
   
   return (
     <>
-      <div className="d-flex justify-content-center align-items-center vh-100">
-        <div className="border border-dark p-5">
+      <div className="center-box">
+        <div className="box">
           <h2 className="mb-4">로그인</h2>
           <form onSubmit={handleSubmit}>
             <div className="mb-3">
@@ -50,13 +67,26 @@ const Login = (props) => {
               <label htmlFor="password" className="form-label">비밀번호:</label>
               <input type="password" id="password" className="form-control" onChange={e => setPassword(e.target.value)} />
             </div>
-            <button type="submit" className="btn btn-outline-secondary">로그인</button>
-            <Link to="/sign_up">
-            <button type="button" className="btn btn-outline-secondary">회원가입</button>
-            </Link>
+            <div className="form-footer">
+              <button type="submit" className="btn btn-outline-secondary">로그인</button>
+              <Link to="/sign_up">
+                <button type="button" className="btn btn-outline-secondary">회원가입</button>
+              </Link>
+            </div>
           </form>
         </div>
       </div>
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>경고</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalMessage}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            닫기
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
