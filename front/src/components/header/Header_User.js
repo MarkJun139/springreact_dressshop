@@ -11,10 +11,9 @@ function Header_User(props) {
   return (
     <>
       <div className="header-user-container">
-        <div className="header-user-nick">{userNick}</div>
-        <Dropdown>
+        <div className="header-user-nick">
+        <Dropdown>{userNick}
           <Dropdown.Toggle variant="success" id="dropdown-basic" />
-
           <Dropdown.Menu>
             <Dropdown.Item href="#/action-1">회원정보수정</Dropdown.Item>
             <Dropdown.Item href="#/action-2">장바구니</Dropdown.Item>
@@ -23,6 +22,7 @@ function Header_User(props) {
             <Dropdown.Item href="#/action-5">로그아웃</Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
+        </div>
       </div>
     </>
   );

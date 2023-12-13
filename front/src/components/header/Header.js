@@ -5,9 +5,10 @@ import { BsSearch } from "react-icons/bs";
 import Header_Guest from './Header_Guest';
 import Header_User from './Header_User';
 import Header_Admin from './Header_Admin';
+import { useSelector } from 'react-redux';
 
 function Header(props) {
-  const [isLogin, set_isLogin] = useState(false);
+  const isLogin = useSelector(state => state.login.isLogin);
   const [isPermission, set_isPermission] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [list, setList] = useState([]);
@@ -53,9 +54,9 @@ function Header(props) {
       </div>
         <div className='linkbox'>
           |
-          <a className="header" href='/'>Home</a>
+          <Link className="header" to='/'>Home</Link>
           |
-          <a className="header" href='/'>최근 본 상품</a>
+          <Link className="header" to='/'>최근 본 상품</Link>
           |
           {button}
         </div>

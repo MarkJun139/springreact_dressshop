@@ -9,6 +9,9 @@
     white-space: nowrap;
     color: white;
     margin-left: 10px;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
 }
 
 .header{

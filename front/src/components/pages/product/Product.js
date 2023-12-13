@@ -59,9 +59,9 @@ const Product = (props) => {
                 key={item.상품이름}
               >
                 <Card className="mb-4 card-fixed">
-                  <a href={`/product/${item.상품이름}`}>
+                  <Link to={`/product/${item.상품이름}`}>
                 <Card.Img variant="top" src={item.썸네일이미지} style={{ height: layout === "FOUR" ? '400px' : '200px', objectFit: 'cover' }} />
-                </a>
+                </Link>
                   <Card.Body>
                       <Card.Title style={{ fontSize: "12px" }}>
                         {item.상품이름}
