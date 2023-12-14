@@ -27,7 +27,7 @@ function Header_User(props) {
             {userNick}
             <Dropdown.Toggle variant="success" id="dropdown-basic" />
             <Dropdown.Menu>
-              <Dropdown.Item><Link to="/user" className="link">회원정보수정</Link></Dropdown.Item>
+              <Dropdown.Item><Link to="/useredit" className="link">회원정보수정</Link></Dropdown.Item>
               <Dropdown.Item><Link to="/action-2" className="link">장바구니</Link></Dropdown.Item>
               <Dropdown.Item><Link to="/action-2" className="link">구매목록</Link></Dropdown.Item>
               <Dropdown.Item><Link to="/action-3" className="link">회원탈퇴</Link></Dropdown.Item>
